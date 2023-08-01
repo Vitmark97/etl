@@ -432,7 +432,7 @@ namespace etl
     {
       ETL_STATIC_ASSERT(etl::is_copy_constructible<TValue>::value, "Value not copy assignable");
 
-      storage = value;
+      storage.template emplace<Value_Type>(value);
       return *this;
     }
 
@@ -444,7 +444,7 @@ namespace etl
     {
       ETL_STATIC_ASSERT(etl::is_move_constructible<TValue>::value, "Value not move assignable");
 
-      storage = etl::move(value);
+      storage.template emplace<Value_Type>(etl::move(value));
       return *this;
     }
 #endif
@@ -456,7 +456,7 @@ namespace etl
     {
       ETL_STATIC_ASSERT(etl::is_copy_constructible<TError>::value, "Error not copy assignable");
 
-      storage = ue.error();
+      storage.template emplace<Error_Type>(ue.error());
 
       return *this;
     }
@@ -469,7 +469,7 @@ namespace etl
     {
       ETL_STATIC_ASSERT(etl::is_move_constructible<TError>::value, "Error not move assignable");
 
-      storage = etl::move(ue.error());
+      storage.template emplace<Error_Type>(etl::move(ue.error()));
 
       return *this;
     }
